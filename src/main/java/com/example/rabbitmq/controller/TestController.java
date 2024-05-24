@@ -21,5 +21,12 @@ public class TestController {
         testService.sendMessageToRabbitMq("我是來自前端的訊息");
         return ResponseEntity.ok().body("完成");
     }
+
+
+    @GetMapping("/save")
+    public ResponseEntity<String> saveMessage() {
+        testService.saveMessageToRabbitMq("我是來自前端的訊息");
+        return ResponseEntity.ok().body("完成");
+    }
 }
 

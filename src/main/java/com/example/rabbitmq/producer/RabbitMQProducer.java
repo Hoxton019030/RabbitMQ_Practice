@@ -15,6 +15,8 @@ public class RabbitMQProducer {
 
     @Value("${rabbitmq.routekey.name}")
     String routeKey;
+    @Value("${rabbitmq.savequeueroutekey.name}")
+    String saveRouteKey;
     @Value("${rabbitmq.exchange.name}")
     String exchangeName;
     @Value("${rabbitmq.queue.name}")
@@ -25,4 +27,10 @@ public class RabbitMQProducer {
         log.info("呼叫到MessageQueueProducer");
         rabbitTemplate.convertAndSend(exchangeName, routeKey, message);
     }
+
+    public void saveMessage(String message) {
+        log.info("儲存檔案，呼叫到MessageQueueProducer");
+        rabbitTemplate.convertAndSend(exchangeName, saveRouteKey, message);
+    }
 }
+

@@ -15,4 +15,10 @@ public class TestService {
         log.info("發送消息到Rabbit Mq:{}",message);
         rabbitMQProducer.sendMessage(message);
     }
+
+
+    public void saveMessageToRabbitMq(String message){
+        log.info("儲存消息到Rabbit Mq:{}",message);
+        rabbitMQProducer.saveMessage(message);
+    }
 }

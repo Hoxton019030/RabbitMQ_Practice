@@ -22,6 +22,8 @@ public class RabbitMessageQueueConfiguration {
     String exchangeName;
     @Value("${rabbitmq.queue.name}")
     String queueName;
+    @Value("${rabbitmq.savequeue.name}")
+    String saveQueueName;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -40,9 +42,13 @@ public class RabbitMessageQueueConfiguration {
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(exchangeName, BuiltinExchangeType.DIRECT, true, false, null);
-
+        //測試用的Queue
         channel.queueDeclare(queueName, true, false, false, null);
         channel.queueBind(queueName, exchangeName
+                , routeKey);
+        //用來處理IO的Queue
+        channel.queueDeclare(saveQueueName, true, false, false, null);
+        channel.queueBind(saveQueueName, exchangeName
                 , routeKey);
 
         String message = "Rabbit Mq啟動成功";
