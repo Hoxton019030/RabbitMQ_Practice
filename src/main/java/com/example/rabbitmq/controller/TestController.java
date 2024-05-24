@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final RabbitMQProducer rabbitMQProducer;
     private final TestService testService;
 
     @GetMapping("/")

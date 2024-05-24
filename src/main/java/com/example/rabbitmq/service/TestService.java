@@ -3,7 +3,6 @@ package com.example.rabbitmq.service;
 import com.example.rabbitmq.producer.RabbitMQProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
