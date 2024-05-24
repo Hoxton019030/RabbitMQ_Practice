@@ -30,7 +30,7 @@ public class RabbitConsumer {
         byte[] body = message.getBody();
         String messageContent = new String(body);
         System.out.println("呼叫到Consumer");
-        System.out.println("接收到的消息: " + messageContent);
+        System.out.println("儲存到的消息: " + messageContent);
 
         try {
             saveMessageToFile(messageContent);
