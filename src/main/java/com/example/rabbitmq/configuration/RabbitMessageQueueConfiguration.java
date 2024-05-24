@@ -20,7 +20,7 @@ public class RabbitMessageQueueConfiguration {
     String routeKey;
     @Value("${rabbitmq.exchange.name}")
     String exchangeName;
-    @Value("rabbitmq.queue.name")
+    @Value("${rabbitmq.queue.name}")
     String queueName;
 
     @Bean
