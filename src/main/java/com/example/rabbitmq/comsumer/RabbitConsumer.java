@@ -1,11 +1,13 @@
 package com.example.rabbitmq.comsumer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class RabbitConsumer {
 
     /**
@@ -13,12 +15,11 @@ public class RabbitConsumer {
      * @param message
      */
 
-    @RabbitListener(queues = "xc_queue_name")
-    public void process(Message message) {
+    @RabbitListener(queues = "${rabbitmq.queue.name}")
+    public void process(Message message)  {
         byte[] body = message.getBody();
-        System.out.println("呼叫到Consumer");
-        System.out.println("接收到的消息" + new String(body));
-
+        log.info("呼叫到Consumer");
+        log.info("接收到的消息" + new String(body));
     }
 }
 

@@ -5,6 +5,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,12 @@ import java.util.concurrent.TimeoutException;
 public class RabbitMessageQueueConfiguration {
 
     private ConnectionFactory connectionFactory;
+    @Value("${rabbitmq.routekey.name}")
+    String routeKey;
+    @Value("${rabbitmq.exchange.name}")
+    String exchangeName;
+    @Value("rabbitmq.queue.name")
+    String queueName;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -32,18 +39,17 @@ public class RabbitMessageQueueConfiguration {
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
 
-        String exchangeName = "xc_exchange_name";
         channel.exchangeDeclare(exchangeName, BuiltinExchangeType.DIRECT, true, false, null);
 
-        String queueName = "xc_queue_name";
         channel.queueDeclare(queueName, true, false, false, null);
-        channel.queueBind(queueName, exchangeName, queueName);
+        channel.queueBind(queueName, exchangeName
+                , routeKey);
 
-        String message = "Hello rabbitMQ";
+        String message = "Rabbit Mq啟動成功";
         channel.basicPublish(exchangeName, queueName, null, message.getBytes());
 
-//        channel.close();
-//        connection.close();
+        channel.close();
+        connection.close();
     }
 
 }
