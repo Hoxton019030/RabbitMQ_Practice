@@ -26,8 +26,8 @@ public class RabbitMessageQueueConfiguration {
         // 使用 connectionFactory bean 创建连接
         connectionFactory = new ConnectionFactory();
         connectionFactory.setHost("127.0.0.1");
-        connectionFactory.setUsername("guest");
-        connectionFactory.setPassword("guest");
+        connectionFactory.setUsername("hoxton");
+        connectionFactory.setPassword("123456");
         connectionFactory.setPort(5672);
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
@@ -42,7 +42,8 @@ public class RabbitMessageQueueConfiguration {
         String message = "Hello rabbitMQ";
         channel.basicPublish(exchangeName, queueName, null, message.getBytes());
 
-        channel.close();
-        connection.close();
+//        channel.close();
+//        connection.close();
     }
+
 }
